@@ -77,6 +77,10 @@ public class CLI {
         .addArgument("--server")
         .action(Arguments.storeTrue())
         .help("Enables server mode.");
+
+    parser
+        .addArgument("--port")
+        .help(String.format("Listening port for server mode (default %d)", DEFAULT_PORT));
     
     parser
         .addArgument("-t", "--timestamp")
@@ -108,8 +112,17 @@ public class CLI {
       int timeoutInSeconds = -1;
 
       try {
+        Integer port;
+        if (parsedArguments.get("port") == null){
+          port = DEFAULT_PORT;
+        } else {
+          port = Integer.parseInt(parsedArguments.getString("port"));
+        }
+        System.out
+          .println(String.format("Port = %d", port));
+
         final HttpServer httpServer = new HttpServer();
-        NetworkListener nl = new NetworkListener("ehu-parse-server", DEFAULT_HOST, DEFAULT_PORT);
+        NetworkListener nl = new NetworkListener("ehu-parse-server", DEFAULT_HOST, port);
         httpServer.addListener(nl);
 
         String lang = parsedArguments.getString("lang");
