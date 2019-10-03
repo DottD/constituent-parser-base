@@ -33,7 +33,7 @@ public class CLI {
 
   private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CLI.class);
   public static final String DEFAULT_HOST = "0.0.0.0";
-  public static final Integer DEFAULT_PORT = 8012;
+  public static final Integer DEFAULT_PORT = 55555;
   // TODO allow to specify a port
 
   /**
@@ -125,7 +125,13 @@ public class CLI {
         NetworkListener nl = new NetworkListener("ehu-parse-server", DEFAULT_HOST, port);
         httpServer.addListener(nl);
 
-        String lang = parsedArguments.getString("lang");
+        String lang;
+        if (parsedArguments.get("lang") == null) { 
+          lang = "it";
+          System.out.println("Set default language: IT");
+        } else {
+          lang = parsedArguments.getString("lang");
+        }
         Boolean noHeads = parsedArguments.getBoolean("noHeads");
         RequestsHandler handler = new RequestsHandler(lang, noHeads);
         handler.setRequestURIEncoding(Charset.forName("UTF-8"));
