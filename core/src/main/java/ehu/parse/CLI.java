@@ -20,7 +20,6 @@ import ehu.heads.HeadFinder;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
-import org.slf4j.LoggerFactory;
 
 /**
  * Constituent Parsing for 4 languages: English, Spanish, French and Italian
@@ -31,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 public class CLI {
 
-  private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CLI.class);
   public static final String DEFAULT_HOST = "0.0.0.0";
   public static final Integer DEFAULT_PORT = 55555;
   // TODO allow to specify a port
@@ -49,8 +47,6 @@ public class CLI {
    */
 
   public static void main(String[] args) throws Exception {
-
-    System.out.printf(args.toString());
 
     Namespace parsedArguments = null;
 
@@ -143,7 +139,7 @@ public class CLI {
         httpServer.start();
         Thread.currentThread().join();
       } catch (Exception e) {
-          LOGGER.error("error running " + DEFAULT_HOST + ":" + DEFAULT_PORT);
+          System.out.println("error running " + DEFAULT_HOST + ":" + DEFAULT_PORT);
           e.printStackTrace();
       }
 

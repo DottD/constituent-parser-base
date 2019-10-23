@@ -4,8 +4,6 @@ import org.glassfish.grizzly.Buffer;
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.HashMap;
@@ -16,8 +14,6 @@ import ehu.heads.CollinsHeadFinder;
 import ehu.heads.HeadFinder;
 
 public class RequestsHandler extends HttpHandler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestsHandler.class);
 
     public static Map<OutputFormat, String> contentTypes = new HashMap<>();
 
@@ -83,8 +79,6 @@ public class RequestsHandler extends HttpHandler {
         else {
             parsedText = annotator.parse(kaf);
         }
-
-        LOGGER.debug("Text: {}", text);
 
         // Write to output stream
         writeOutput(response, contentTypes.get(OutputFormat.XML), parsedText);
